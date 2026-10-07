@@ -1,0 +1,13 @@
+{
+  "description": "minimal React setup CPSC 2650 with Vite",
+  "scripts": {
+    "build": "npm install && cd react && npm install && cd ../express && npm install",
+    "start": "concurrently -n client,server -c blue,magenta 'npm run start-client' 'npm run start-server'",
+    "start-client": "cd react && npm run dev",
+    "start-server": "cd express && npm run dev"
+  },
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

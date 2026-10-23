@@ -296,7 +296,21 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 	}, e.version = "19.3.0";
 })), n = /* @__PURE__ */ e(((e, n) => {
 	n.exports = t();
-})), r = /* @__PURE__ */ e(((e) => {
+})), r = n(), i = (e) => e.replace(/^#/, ""), a = (e, t) => {
+	let [n, a] = (0, r.useState)(e), o = (0, r.useRef)(i(window.location.hash)), s = (0, r.useRef)(e);
+	return (0, r.useEffect)(() => {
+		if (!e || !t || t.length === 0) return;
+		let n = t.includes(o.current) ? o.current : e;
+		a(n), s.current = n, window.history.replaceState(null, "", "#" + n);
+		let r = (e) => {
+			let n = i(window.location.hash);
+			t.includes(n) ? (a(n), s.current = n) : window.history.replaceState(null, "", "#" + s.current);
+		};
+		return window.addEventListener("hashchange", r), () => window.removeEventListener("hashchange", r);
+	}, [e, t]), [n, (e) => {
+		e !== n && (a(e), s.current = e, window.history.pushState(null, "", "#" + e));
+	}];
+}, o = /* @__PURE__ */ e(((e) => {
 	var t = Symbol.for("react.transitional.element"), n = Symbol.for("react.fragment");
 	function r(e, n, r) {
 		var i = null;
@@ -311,24 +325,43 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 		};
 	}
 	e.Fragment = n, e.jsx = r, e.jsxs = r;
-})), i = /* @__PURE__ */ e(((e, t) => {
-	t.exports = r();
-})), a = n(), o = i(), s = (e) => {
-	let [t, n] = (0, a.useState)([]), [r, i] = (0, a.useState)(!0);
-	return (0, a.useEffect)(() => {
-		let e = async () => {
-			let e = await fetch("https://hacker-news.firebaseio.com/v0/maxitem.json"), r = await e.json();
-			if (!t.some((e) => e.id === r)) {
-				e = await fetch(`https://hacker-news.firebaseio.com/v0/item/${r}.json`);
-				let t = await e.json();
-				t.type == "comment" && n((e) => [...e, t]), console.log(t);
+})), s = (/* @__PURE__ */ e(((e, t) => {
+	t.exports = o();
+})))(), c = (e) => {
+	let { group: t } = e;
+	return t ? /* @__PURE__ */ (0, s.jsx)("h2", { children: t.name }) : null;
+}, l = (e) => {
+	let [t, n] = (0, r.useState)([]);
+	(0, r.useEffect)(() => {
+		(async () => {
+			try {
+				let e = await (await fetch("https://dogapi.dog/api/v2/groups")).json();
+				n(e.data.map((e) => ({
+					id: e.id,
+					name: e.attributes.name,
+					breeds: e.relationships.breeds.data
+				})));
+			} catch (e) {
+				console.error("Could not fetch dog groups:", e);
 			}
-		};
-		e();
-		let r = setInterval(e, 1e4);
-		return () => clearInterval(r);
-	}, []), /* @__PURE__ */ (0, o.jsxs)("div", { children: [/* @__PURE__ */ (0, o.jsx)("h2", { children: "Hello Hackernews! " }), /* @__PURE__ */ (0, o.jsx)("ul", { children: t.map((e) => /* @__PURE__ */ (0, o.jsx)("li", { children: e.text }, e.id)) })] });
-}, c = (e) => /* @__PURE__ */ (0, o.jsxs)(o.Fragment, { children: [/* @__PURE__ */ (0, o.jsx)("h1", { children: "Hello React with Vite!" }), /* @__PURE__ */ (0, o.jsx)(s, {})] }), l = /* @__PURE__ */ e(((e) => {
+		})();
+	}, []);
+	let i = (0, r.useMemo)(() => t.map((e) => e.id), [t]), [o, l] = a(i[0], i), u = (0, r.useMemo)(() => t.find((e) => e.id === o), [t, o]);
+	return /* @__PURE__ */ (0, s.jsxs)(s.Fragment, { children: [
+		/* @__PURE__ */ (0, s.jsx)("h1", { children: "Assignment 4 - Advanced React Part 1" }),
+		/* @__PURE__ */ (0, s.jsx)("ul", { children: t.map((e) => /* @__PURE__ */ (0, s.jsx)("li", {
+			className: e.id === o ? "selected" : "",
+			children: /* @__PURE__ */ (0, s.jsx)("a", {
+				href: "#" + e.id,
+				onClick: (t) => {
+					t.preventDefault(), l(e.id);
+				},
+				children: e.name
+			})
+		}, e.id)) }),
+		/* @__PURE__ */ (0, s.jsx)(c, { group: u })
+	] });
+}, u = /* @__PURE__ */ e(((e) => {
 	function t(e, t) {
 		var n = e.length;
 		e.push(t);
@@ -527,9 +560,9 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 			}
 		};
 	};
-})), u = /* @__PURE__ */ e(((e, t) => {
-	t.exports = l();
-})), d = /* @__PURE__ */ e(((e) => {
+})), d = /* @__PURE__ */ e(((e, t) => {
+	t.exports = u();
+})), f = /* @__PURE__ */ e(((e) => {
 	var t = n();
 	function r(e) {
 		var t = "https://react.dev/errors/" + e;
@@ -657,7 +690,7 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 	}, e.useFormStatus = function() {
 		return u.H.useHostTransitionStatus();
 	}, e.version = "19.3.0";
-})), f = /* @__PURE__ */ e(((e, t) => {
+})), p = /* @__PURE__ */ e(((e, t) => {
 	function n() {
 		if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE == "function") try {
 			__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -665,9 +698,9 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 			console.error(e);
 		}
 	}
-	n(), t.exports = d();
-})), p = /* @__PURE__ */ e(((e) => {
-	var t = u(), r = n(), i = f();
+	n(), t.exports = f();
+})), m = /* @__PURE__ */ e(((e) => {
+	var t = d(), r = n(), i = p();
 	function a(e) {
 		var t = "https://react.dev/errors/" + e;
 		if (1 < arguments.length) {
@@ -698,10 +731,10 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 		}
 		return null;
 	}
-	function d(e) {
+	function u(e) {
 		if (s(e) !== e) throw Error(a(188));
 	}
-	function p(e) {
+	function f(e) {
 		var t = e.alternate;
 		if (!t) {
 			if (t = s(e), t === null) throw Error(a(188));
@@ -720,8 +753,8 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 			}
 			if (i.child === o.child) {
 				for (o = i.child; o;) {
-					if (o === n) return d(i), e;
-					if (o === r) return d(i), t;
+					if (o === n) return u(i), e;
+					if (o === r) return u(i), t;
 					o = o.sibling;
 				}
 				throw Error(a(188));
@@ -9036,7 +9069,7 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 	w.findDOMNode = function(e) {
 		var t = e._reactInternals;
 		if (t === void 0) throw typeof e.render == "function" ? Error(a(188)) : (e = Object.keys(e).join(","), Error(a(268, e)));
-		return e = p(t), e = e === null ? null : m(e), e = e === null ? null : e.stateNode, e;
+		return e = f(t), e = e === null ? null : m(e), e = e === null ? null : e.stateNode, e;
 	};
 	var qh = {
 		bundleType: 0,
@@ -9065,8 +9098,8 @@ var e = (e, t) => () => (t || (e((t = { exports: {} }).exports, t), e = null), t
 			console.error(e);
 		}
 	}
-	n(), t.exports = p();
-})))().createRoot)(document.getElementById("react-container")).render(/* @__PURE__ */ (0, o.jsx)(c, {}));
+	n(), t.exports = m();
+})))().createRoot)(document.getElementById("react-container")).render(/* @__PURE__ */ (0, s.jsx)(l, {}));
 //#endregion
 
 //# sourceMappingURL=index.js.map

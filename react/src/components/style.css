@@ -4,3 +4,6 @@ html {
 h1 {
     color: slateblue;
 }
+li.selected {
+    background-color: lightblue;
+}
